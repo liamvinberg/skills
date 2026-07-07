@@ -1,6 +1,6 @@
 # Round-trip page recipes
 
-Pick by the page's shape. State shapes are conventions, not schemas: extend freely, keep `qid` on anything submittable.
+Pick by the page's shape. State shapes are conventions, not schemas: extend freely, keep `qid` on anything submittable. Recipes compose: an interview screen can carry product-true variations or a playground as its options, and a sequence can end on a show-and-confirm.
 
 ## Sequential interview
 
@@ -37,6 +37,14 @@ Pick by the page's shape. State shapes are conventions, not schemas: extend free
 **When:** choosing between concrete alternatives: designs, copy variants, approaches, configurations.
 
 **Page:** the options side by side or stacked, each previewed honestly (not described), radio or click-to-pick, note field, one submit. If options are visual, render them, do not screenshot-describe them.
+
+## Product-true variations
+
+**When:** the discussion is about the product's own UI and the session runs in the product's repo: show each variation as it would actually ship, in the product's real styles, instead of describing it or mocking it in the page's baseline.
+
+**Page:** bring the product's styles in at full fidelity: link its built stylesheet, inline its tokens, or copy the component markup wholesale. Render each variation in its own scoped container, or an iframe when the product CSS is global and would bleed into the page chrome. Label each variation by what changes, put the pick control beneath, keep the page's own baseline for everything that is not the variation.
+
+**Loop:** a pick plus note is an answer like any other. When a note proposes a tweak, render the tweak as a new variation in the next state rather than describing it back in words.
 
 ## Parameter playground
 
