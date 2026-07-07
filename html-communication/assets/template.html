@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>REPLACE: page title</title>
+<style>
+  /* Baseline: monochrome, research-backed reading defaults. Do not add hue
+     or a theme. Near-black on near-white (dark-on-light comprehension),
+     softened dark variant (halation), 17px system type, ~66ch measure. */
+  :root {
+    --ground: #FAFAF9; --surface: #FFFFFF; --ink: #1C1C1C;
+    --dim: #6E6E6E; --seam: #E4E4E2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #161616; --surface: #1E1E1E; --ink: #D9D9D6;
+      --dim: #8A8A88; --seam: #2C2C2B;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 66ch; margin: 0 auto; padding: 44px 22px 88px; }
+  h1 { font-size: 26px; line-height: 1.25; letter-spacing: -0.01em; margin: 0 0 16px; }
+  h2 { font-size: 19px; margin: 32px 0 10px; }
+  h3 { font-size: 17px; margin: 24px 0 8px; }
+  p { margin: 0 0 14px; }
+  a { color: inherit; text-underline-offset: 2px; }
+  hr { border: 0; border-top: 1px solid var(--seam); margin: 28px 0; }
+  .dim { color: var(--dim); }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 13px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; margin: 18px 0; }
+  th { text-align: left; font-family: ui-monospace, monospace; font-size: 12px;
+       font-weight: 500; color: var(--dim); padding: 6px 12px 6px 0;
+       border-bottom: 1px solid var(--ink); }
+  td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--seam); vertical-align: top; }
+  pre { font-family: ui-monospace, monospace; font-size: 13.5px; line-height: 1.5;
+        border: 1px solid var(--seam); background: var(--surface);
+        padding: 14px 16px; overflow-x: auto; }
+  code { font-family: ui-monospace, monospace; font-size: 0.88em; }
+  figure { margin: 20px 0; overflow-x: auto; }
+  img, svg, canvas, video { max-width: 100%; }
+
+  label.choice { display: block; border: 1px solid var(--seam); background: var(--surface);
+    padding: 12px 15px; margin-bottom: 8px; cursor: pointer; }
+  label.choice:has(input:checked) { border-color: var(--ink); }
+  label.choice input { margin-right: 10px; accent-color: var(--ink); }
+  input[type=text], input[type=number], input[type=email], textarea, select {
+    width: 100%; border: 1px solid var(--seam); background: var(--surface);
+    color: var(--ink); padding: 11px 13px; font: 15px/1.5 inherit; font-family: inherit;
+  }
+  textarea { resize: vertical; }
+  input[type=range] { width: 100%; accent-color: var(--ink); }
+  input:focus-visible, textarea:focus-visible, select:focus-visible,
+  button:focus-visible, label.choice:has(input:focus-visible) {
+    outline: 2px solid var(--ink); outline-offset: 1px;
+  }
+  button {
+    border: 1px solid var(--ink); background: var(--surface); color: var(--ink);
+    font: 600 15px/1 inherit; font-family: inherit; padding: 13px 22px; cursor: pointer;
+  }
+  button.primary { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+  button:disabled { border-color: var(--seam); background: var(--surface);
+    color: var(--dim); cursor: default; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main id="app">
+  <!-- REPLACE: author content here, or render it from state.json via watchState. -->
+</main>
+<script>
+/* Round-trip helpers. Keep these; author page logic below them. */
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+
+/* POST an answer to the listener. Resolves true on success. */
+async function submitAnswer(payload) {
+  try {
+    const r = await fetch('/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return r.ok;
+  } catch (e) { return false; }
+}
+
+/* Poll state.json and call onChange(state) whenever its content changes.
+   Quietly retries through fetch errors. Returns a stop function. */
+function watchState(onChange, { file = 'state.json', interval = 1200 } = {}) {
+  let last = null, timer = null, stopped = false;
+  async function tick() {
+    try {
+      const r = await fetch(file, { cache: 'no-store' });
+      if (r.ok) {
+        const text = await r.text();
+        if (text !== last) { last = text; onChange(JSON.parse(text)); }
+      }
+    } catch (e) { /* listener briefly unreachable, keep polling */ }
+    if (!stopped) timer = setTimeout(tick, interval);
+  }
+  tick();
+  return () => { stopped = true; clearTimeout(timer); };
+}
+
+/* REPLACE: page logic. */
+</script>
+</body>
+</html>
