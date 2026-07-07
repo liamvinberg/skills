@@ -1,5 +1,5 @@
 ---
-name: html-communication
+name: page-me
 description: Communicate through a round-trip HTML page served locally, when chat text would flatten the content. Show the user something interactive (comparison, visualization, parameter playground, walkthrough) or collect structured answers (forms, sign-offs, sequential interviews) whose submits flow back into the session. Use when the user asks for a page, form, slider, or interactive anything, when an explanation needs custom inputs or live visuals, or when another skill needs page delivery for its questions or output.
 ---
 

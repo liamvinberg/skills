@@ -4,7 +4,7 @@ Portable [Agent Skills](https://skills.sh) (standard `SKILL.md`), installable cr
 
 | Skill | For | Install |
 |---|---|---|
-| `html-communication` | Communicating through round-trip HTML pages: interactive showings (comparisons, playgrounds, visualizations) and structured answer collection (forms, interviews) with a local listener that feeds submits back into the agent session | `npx skills add liamvinberg/skills --skill html-communication` |
+| `page-me` | The agent pages you: round-trip HTML pages for interactive showings (comparisons, playgrounds, visualizations) and structured answer collection (forms, interviews), with a local listener that feeds submits back into the session | `npx skills add liamvinberg/skills --skill page-me` |
 
 Install everything: `npx skills add liamvinberg/skills`. Updates: `npx skills update`.
 
