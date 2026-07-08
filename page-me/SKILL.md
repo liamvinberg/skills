@@ -7,7 +7,7 @@ A **round-trip page** is a single-file HTML page served by a long-lived local li
 
 ## Steps
 
-1. **Workspace.** Create a fresh directory per page: the project's own throwaway-prototype location if its conventions name one (e.g. a gitignored `scratchpad/`), else `/tmp/html-comm/<slug>/`. Done when the directory exists outside version control.
+1. **Workspace.** Create a fresh directory per page: the project's own throwaway-prototype location if its conventions name one (e.g. a gitignored `scratchpad/`), else `/tmp/html-comm/<slug>/`. If the name is already taken, pick another — two pages must never share a directory, or their answer logs interleave. Done when the directory exists outside version control.
 
 2. **Author.** Pick the recipe matching the page's shape in [PATTERNS.md](PATTERNS.md) before writing anything. Copy `assets/template.html` to `<dir>/index.html` and replace its REPLACE markers, keeping the helpers. Static content lives in the HTML; anything that updates lives in `<dir>/state.json` and renders through `watchState`. The template's baseline is the entire theme: add no hue, no fonts, no decoration, and keep wide content scrolling inside its own container. Done when index.html renders your content with the helpers intact.
 
@@ -15,12 +15,12 @@ A **round-trip page** is a single-file HTML page served by a long-lived local li
 
 4. **Reach the user.** The page must be reachable by whoever it is for. Private reach is the default; expose the page publicly only when the user explicitly asks for an outside answerer. When the project or user configuration names a reach mechanism for remote sessions, prefer it.
    - Local session: `open <url>` (macOS) or `xdg-open <url>`.
-   - Remote session: serve through the environment's private tunnel. With tailscale: `tailscale serve --bg <port>`, announce the https tailnet URL it prints, and escalate to `tailscale funnel` only on that explicit ask. The universal fallback is handing the user `ssh -L <port>:127.0.0.1:<port> <host>` plus the localhost URL.
+   - Remote session: serve through the environment's private tunnel. With tailscale: `tailscale serve --bg --https=<port> <port>` — reusing the listener's own port number keeps concurrent pages from contending, where a bare `serve --bg <port>` claims the machine URL's root and silently evicts whichever page held it. Announce the https `:<port>` tailnet URL it prints. Escalate to `tailscale funnel` only on that explicit ask; funnel permits only ports 443, 8443, and 10000, so remount on a free one of those first. The universal fallback is handing the user `ssh -L <port>:127.0.0.1:<port> <host>` plus the localhost URL.
    Done when the URL is announced in chat.
 
 5. **The round trip.** A page that only shows has nothing to wait for: rewrite `state.json` whenever the session teaches the page something new, and move to teardown once the user closes it out in chat. A page that asks waits for submits without burning attention: watch the listener's output for `SUBMIT ` lines. If your harness has a background file-watch or monitor tool, point it at the listener's output with a filter on `^SUBMIT `. If it does not, `python3 serve.py --await <dir>` blocks until the next answer arrives, and running that in the background makes its exit the wake-up signal. On each answer: read the JSON, act on it, rewrite `state.json` in place. Never restart the listener to change the page. When an answer asks a factual question, research it and put the findings in the next state. Done when the page's purpose is met: every planned screen answered, or the user closes it out in chat.
 
-6. **Teardown.** Kill the listener. If a tunnel was configured, remove it (tailscale: `tailscale serve --https=443 off`, or `funnel --https=443 off`). Graduate durable conclusions to wherever the invoking task records them (ticket, doc, chat summary); the page itself is throwaway. Done when nothing listens and no serve config remains.
+6. **Teardown.** Kill the listener. If a tunnel was configured, remove only your page's mount (tailscale: `tailscale serve --https=<port> off`, or `funnel --https=<port> off`) — other sessions may hold mounts of their own. Graduate durable conclusions to wherever the invoking task records them (ticket, doc, chat summary); the page itself is throwaway. Done when nothing listens and no serve config remains.
 
 ## Answers
 

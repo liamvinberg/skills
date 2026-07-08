@@ -97,6 +97,11 @@
 <script>
 /* Round-trip helpers. Keep these; author page logic below them. */
 
+/* Relative fetches (submit, state.json) resolve against the page URL, which
+   must therefore end in '/' when a proxy mounts the page under a path. */
+if (!location.pathname.endsWith('/') && !/\.\w+$/.test(location.pathname))
+  location.replace(location.pathname + '/' + location.search + location.hash);
+
 function esc(s) {
   return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 }
@@ -104,7 +109,7 @@ function esc(s) {
 /* POST an answer to the listener. Resolves true on success. */
 async function submitAnswer(payload) {
   try {
-    const r = await fetch('/submit', {
+    const r = await fetch('submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
