@@ -4,6 +4,7 @@ Portable [Agent Skills](https://skills.sh) (standard `SKILL.md`), installable cr
 
 | Skill | For | Install |
 |---|---|---|
+| `codex-delegate` | Delegate work to Codex CLI workers: model/effort picked from codex's own live lineup cache (never a hardcoded model list), background `codex exec` spawn, artifact-based judging, fix rounds by resuming the worker's session | `npx skills add liamvinberg/skills --skill codex-delegate` |
 | `page-me` | The agent pages you: round-trip HTML pages for interactive showings (comparisons, playgrounds, visualizations) and structured answer collection (forms, interviews), with a local listener that feeds submits back into the session | `npx skills add liamvinberg/skills --skill page-me` |
 
 Install everything: `npx skills add liamvinberg/skills`. Updates: `npx skills update`.
