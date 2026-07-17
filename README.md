@@ -5,7 +5,7 @@ Portable [Agent Skills](https://skills.sh) (standard `SKILL.md`), installable cr
 | Skill | For | Install |
 |---|---|---|
 | `beam` | Temporarily serve a local file or folder to your other devices over your Tailscale tailnet | `npx skills add liamvinberg/skills --skill beam` |
-| `codex-delegate` | Delegate work to Codex CLI workers: model/effort picked from codex's own live lineup cache (never a hardcoded model list), background `codex exec` spawn, artifact-based judging, fix rounds by resuming the worker's session; implementation runs in disposable worktree lanes — parallel fan-out with dependency chains, auto-landed onto your branch and erased | `npx skills add liamvinberg/skills --skill codex-delegate` |
+| `delegate` | Delegate implementation to CLI workers in disposable worktree lanes: a harness-agnostic core (brief, lane, artifact-based judging, fix rounds, land) plus per-harness adapters — codex today, with model/effort picked from codex's own live lineup cache; parallel fan-out with dependency chains, auto-landed onto your branch and erased | `npx skills add liamvinberg/skills --skill delegate` |
 | `page-me` | The agent pages you: round-trip HTML pages for interactive showings (comparisons, playgrounds, visualizations) and structured answer collection (forms, interviews), with a local listener that feeds submits back into the session | `npx skills add liamvinberg/skills --skill page-me` |
 
 Install everything: `npx skills add liamvinberg/skills`. Updates: `npx skills update`.
