@@ -11,8 +11,8 @@ catches strays inside the lane.
 opencode models [provider]
 ```
 
-`-m provider/model` selects — the free `opencode-go/*` lineup includes
-`glm-5.2`, `kimi-k2.7-code`, and more. Effort is provider-specific via
+`-m provider/model` selects — the free `opencode-go/*` lineup carries GLM,
+Kimi, MiniMax and more, all free. Effort is provider-specific via
 `--variant`, which exposes fewer rungs than the ladder: medium→no flag,
 high and xhigh→`--variant high`, max→`--variant max`. Models without variants
 ignore it. `--variant minimal` sits below the ladder for trivial work.

@@ -15,9 +15,8 @@ jq -r '.models[] | select(.visibility=="list") | [.priority, .slug,
   ~/.codex/models_cache.json | sort -n
 ```
 
-**Model** — lowest `priority` is the flagship (2026-07: `gpt-5.6-sol`);
-default to it. Step down the list only deliberately, for mechanical bulk work
-where speed beats depth.
+**Model** — lowest `priority` is the flagship; default to it. Step down the
+list only deliberately, for mechanical bulk work where speed beats depth.
 
 **Effort** — flag is `-c model_reasoning_effort=<level>`, levels
 `low|medium|high|xhigh|max`. The flagship is strong low, so start low and

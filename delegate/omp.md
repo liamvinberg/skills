@@ -13,7 +13,7 @@ omp models [ls|find|<provider>] [pattern] [--json]
 ```
 
 `--model <fuzzy>` selects with no fixed flagship — fuzzy-match what you want
-("opus", "glm-5.2", "provider/id"). Effort is
+("opus", "glm", "provider/id"). Effort is
 `--thinking off|minimal|low|medium|high|xhigh|auto`; the model's list row
 shows which levels it honors. Map the core ladder medium→medium, high→high,
 xhigh and max→xhigh (xhigh the cap). Role models split brains in one run:

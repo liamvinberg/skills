@@ -48,7 +48,8 @@ goal), cwd is enough. A new harness is a new sibling answering the same six.
   security-sensitive behavior, hard debugging.
 - `max` — hardest single problems, rare.
 
-Done when model and effort come from the adapter's live source, not memory.
+Done when the model comes from the adapter's live list, not memory, and
+effort from the task via the ladder above.
 
 ## 2. Brief
 
