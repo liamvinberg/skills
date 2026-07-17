@@ -19,15 +19,12 @@ jq -r '.models[] | select(.visibility=="list") | [.priority, .slug,
 default to it. Step down the list only deliberately, for mechanical bulk work
 where speed beats depth.
 
-**Effort** — the flagship is strong at low effort: start low, turn it up.
-
-- `medium` — default: bounded, spec-shaped tasks.
-- `high` — substantial multi-file implementation.
-- `xhigh` — cross-cutting architecture, concurrency, subtle state,
-  security-sensitive behavior, hard debugging.
-- `max` — hardest single problems, rare.
-- `ultra` — the worker delegates sub-tasks itself; the most tokens by far.
-  Only on the user's explicit ask.
+**Effort** — flag is `-c model_reasoning_effort=<level>`, levels
+`low|medium|high|xhigh|max`. The flagship is strong low, so start low and
+turn it up the core ladder. Two codex-only rungs frame it: `low` below the
+ladder's medium for trivial work, and `ultra` above `max` — the worker
+delegates sub-tasks itself, the most tokens by far, only on the user's
+explicit ask.
 
 ## Spawn
 

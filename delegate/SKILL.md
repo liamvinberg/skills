@@ -24,14 +24,29 @@ lane (§3), never in your working tree.
 
 ## 1. Harness
 
-The ask names the harness; unnamed → codex. Read the adapter before spawning
-— it answers six things this file deliberately doesn't: model + effort
-selection, the spawn command, the resume command, how writes stay confined to
-the lane, where the final message lands, and the knobs.
+The ask names the harness; unnamed → codex. Read that adapter before
+spawning — it answers six things this file deliberately doesn't: model +
+effort selection, the spawn command, the resume command, how writes stay
+confined to the lane, where the final message lands, and the knobs.
 
 - [codex.md](codex.md) — Codex CLI (`codex exec`), the default
+- [pi.md](pi.md) — pi (`pi -p`)
+- [omp.md](omp.md) — Oh My Pi (`omp -p`), pi with profiles + role models
+- [opencode.md](opencode.md) — opencode (`opencode run`)
 
-A new harness is a new sibling file answering the same six.
+Codex confines writes at the kernel; the rest confine by the lane's cwd and
+lean on the §5 scope-gate — which sees strays inside the lane but not an
+absolute-path write to the main tree. For hard isolation of untrusted work,
+pick codex; to point well-behaved workers at disjoint files (the parallel-lane
+goal), cwd is enough. A new harness is a new sibling answering the same six.
+
+**Effort** scales to the task; each adapter maps these rungs to its own knob:
+
+- `medium` — default: bounded, spec-shaped tasks.
+- `high` — substantial multi-file implementation.
+- `xhigh` — cross-cutting architecture, concurrency, subtle state,
+  security-sensitive behavior, hard debugging.
+- `max` — hardest single problems, rare.
 
 Done when model and effort come from the adapter's live source, not memory.
 
